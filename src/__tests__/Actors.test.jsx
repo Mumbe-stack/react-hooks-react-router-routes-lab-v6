@@ -1,7 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter} from "react-router-dom";
-import routes from "../routes";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { vi } from "vitest"; // Make sure this matches your test runner
+import { routeArray } from "../routes"; // Use routeArray, not routes
 
 const actors = [
   {
@@ -26,30 +27,27 @@ const actors = [
   },
 ];
 
-const router = createMemoryRouter(routes, {
-  initialEntries: [`/actors`],
-  initialIndex: 0
-})
+const router = createMemoryRouter(routeArray, {
+  initialEntries: ["/actors"],
+  initialIndex: 0,
+});
 
 test("renders without any errors", () => {
   const errorSpy = vi.spyOn(global.console, "error");
-
-  render(<RouterProvider router={router}/>);
-
+  render(<RouterProvider router={router} />);
   expect(errorSpy).not.toHaveBeenCalled();
-
   errorSpy.mockRestore();
 });
 
 test("renders 'Actors Page' inside of the <h1 />", () => {
-  render(<RouterProvider router={router}/>);
-  const h1 = screen.queryByText(/Actors Page/);
+  render(<RouterProvider router={router} />);
+  const h1 = screen.queryByText(/Actors Page/i);
   expect(h1).toBeInTheDocument();
   expect(h1.tagName).toBe("H1");
 });
 
 test("renders each actor's name", async () => {
-  render(<RouterProvider router={router}/>);
+  render(<RouterProvider router={router} />);
   for (const actor of actors) {
     expect(
       await screen.findByText(actor.name, { exact: false })
@@ -58,7 +56,7 @@ test("renders each actor's name", async () => {
 });
 
 test("renders a <li /> for each movie", async () => {
-  render(<RouterProvider router={router}/>);
+  render(<RouterProvider router={router} />);
   for (const actor of actors) {
     for (const movie of actor.movies) {
       const li = await screen.findByText(movie, { exact: false });
@@ -69,11 +67,9 @@ test("renders a <li /> for each movie", async () => {
 });
 
 test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes, {
-    initialEntries: ['/actors']
-  })
-  render(
-      <RouterProvider router={router}/>
-  );
+  const navbarRouter = createMemoryRouter(routeArray, {
+    initialEntries: ["/actors"],
+  });
+  render(<RouterProvider router={navbarRouter} />);
   expect(document.querySelector(".navbar")).toBeInTheDocument();
 });
