@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
-import { vi } from "vitest"; // Make sure this matches your test environment
-import { routeArray } from "../routes"; // Use the route array export
+import { vi } from "vitest"; 
+import { routeArray } from "../routes"; 
 
 const directors = [
   {

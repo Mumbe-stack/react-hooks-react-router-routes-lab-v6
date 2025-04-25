@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { vi } from "vitest"; // Make sure this matches your test runner
-import { routeArray } from "../routes"; // Use routeArray, not routes
+import { vi } from "vitest"; 
+import { routeArray } from "../routes"; 
 
 const actors = [
   {

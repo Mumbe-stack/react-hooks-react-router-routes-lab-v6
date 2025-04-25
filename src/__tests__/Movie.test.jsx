@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
-import { routeArray } from "../routes"; // Use routeArray if that's how you're exporting
+import { routeArray } from "../routes"; 
 
 const id = 1;
 const router = createMemoryRouter(routeArray, {
